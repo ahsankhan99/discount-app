@@ -1,26 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import { TextInput, StyleSheet, Text, View } from 'react-native';
 
+
 export default function App() {
-  const [price, setPrice] = React.useState(null);
-  const [discount, setDiscount] = React.useState(null);
+
+  const [price, setPrice] = useState("");
+  const [discount, setDiscount] = useState("");
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        setText={setPrice}
+        onChangeText={setPrice}
         value={price}
         placeholder="Enter Original Price"
         keyboardType="numeric"
       />
       <TextInput
         style={styles.input}
-        setText={setDiscount}
+        onChangeText={setDiscount}
         value={discount}
         placeholder="Enter Discount Percentage"
         keyboardType="numeric"
       />
+      <Text>You Save: {(discount/100) * price}</Text>
+      <Text>Final Price: {price - (discount/100) * price}</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -37,7 +42,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 200,
     margin: 12,
-    padding : 3,
+    padding: 3,
     borderWidth: 1,
   },
 });
